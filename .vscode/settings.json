@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./fetch_school_folder",
+        "./fetch_teacher_folder"
+    ]
+}
