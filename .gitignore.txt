@@ -1,4 +1,4 @@
 # Ignore the __pycache__ folder
-__pycache__/*
-/fetch_school_folder/__pycache__/*
-/fetch_teacher_folder/__pycache__/*
+__pycache__/
+/fetch_school_folder/__pycache__/
+/fetch_teacher_folder/__pycache__/
