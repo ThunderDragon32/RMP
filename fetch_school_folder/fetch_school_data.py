@@ -10,7 +10,7 @@ import base64 # Used to decode IDs
 from school_rating_payload import generate_school_rating_query_payload # import the rating payload function
 from school_inital_payload import generate_inital_payload # import the inital payload function
 from school_print_functions import * # Simply imports all print functions from school_print_functions.py used to display the school data
-from school_csv_functions import *
+from school_csv_functions import * # Simply imports all csv functions from school_csv_functions.py used
 
 def fetch_school_data(school_id : str, rating_amount_per_request : int, cursor : str):
 
@@ -41,18 +41,22 @@ def fetch_school_data(school_id : str, rating_amount_per_request : int, cursor :
     # Check if the request was successful (status code 200), this checks to see if we actually got a response back.
     if response.status_code == 200:
         try:
-        
             school_node = data["data"]["school"] # Get the School node this holds the data we want.
         
             if school_node:
-
-                #Give school node to this print functions so it can print out the data. 
                 # print(school_node)
-                # print_school(school_node) 
-                print_school_rating_distribution(school_node)
 
+                # Print functions to print data to the console
+                #--------------------------------------------------------------
+                # print_school(school_node) 
+                # print_school_rating_distribution(school_node)
+                #------------------------------------------------
+
+                # CSV Writer Functions to write data to a CSV file
+                #----------------------------------------------------------------
                 school_csv_writer("school.csv", school_node)
                 school_rating_distribution_csv_writer("school_rating_distribution.csv", school_node)
+                #--------------------------------------------------------------
 
         except json.decoder.JSONDecodeError:
             print("Invalid JSON response for inital request..skipping")
@@ -78,12 +82,19 @@ def fetch_school_data(school_id : str, rating_amount_per_request : int, cursor :
 
                 if school_node:
             
+                    # Print functions to print data to the console
+                    #--------------------------------------------------------------
                     # print_school_individual_ratings(school_node)
+                    #--------------------------------------------------------------
 
+                    # CSV Writer Functions to write data to a CSV file
+                    #----------------------------------------------------------------
                     school_individual_ratings_csv_writer("school_student_ratings.csv", school_node)
-            
+                    #----------------------------------------------------------------
+                    
+
+
                     has_next_page = school_node['ratings']['pageInfo']['hasNextPage'] # If next page True otherwise False
-              
                     if has_next_page:
                         # print(school_node['ratings']['pageInfo']['endCursor'])
                         cursor = school_node['ratings']['pageInfo']['endCursor'] # Get the new cursor postion

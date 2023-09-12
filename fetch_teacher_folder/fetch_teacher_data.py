@@ -12,7 +12,7 @@ import requests # Used to make HTTP requests
 from teacher_print_functions import *  # Simply imports all print functions from teacher_print_functions.py used to display the teacher data
 from teacher_inital_payload import generate_inital_payload # import the inital payload function
 from teacher_rating_payload import generate_teacher_rating_payload # import the rating payload function
-from teacher_csv_functions import *
+from teacher_csv_functions import * # Simple import all csv functions from teacher_csv_functions
 
 def fetch_teacher_data(teacher_id: str, rating_amount_per_request: int, cursor: str):
 
@@ -41,28 +41,31 @@ def fetch_teacher_data(teacher_id: str, rating_amount_per_request: int, cursor: 
     try:
       data = response.json() #Get the data from the response of the request
       #print(data) #Debug print
-
       # Check if the request was successful (status code 200), this checks to see if we actually got a response back.
-
       teacher_node = data['data']['node'] # Grab teacher_node to access data
       if teacher_node:
       
-    
-
-    
-        #Give teacher node to this print functions so it can print out the data. 
+        # Print functions to print data to the console
+        #--------------------------------------------------------------
         # print_teacher(teacher_node)
         # print_teacher_school(teacher_node)
         # print_teacher_rating_distribution(teacher_node)
         # print_teacher_course_codes(teacher_node)
         # print_teacher_rating_tags(teacher_node)
         # print_related_teachers(teacher_node)
+        #----------------------------------------------------------------
 
-    
+
+
+        # CSV Writer Functions to write data to a CSV file
+        #----------------------------------------------------------------
         teacher_csv_writer("teacher.csv", teacher_node)
         teacher_course_codes_csv_writer("teacher_course_codes.csv", teacher_node)
         teacher_rating_tags_csv_writer("teacher_rating_tags.csv", teacher_node)
         teacher_related_teachers_csv_writer("teacher_related_teachers.csv", teacher_node)
+        #------------------------------------------------------------------
+
+
 
     except json.decoder.JSONDecodeError:
       print("Invalid JSON Response for Inital Request..skipping..")
@@ -91,11 +94,19 @@ def fetch_teacher_data(teacher_id: str, rating_amount_per_request: int, cursor: 
         if teacher_node:
           #print(teacher_node) #Debug print
 
-          # print_student_ratings(teacher_node)
-      
 
+
+          #Print Function, prints to the console
+          #------------------------------------------------------------
+          # print_student_ratings(teacher_node)
+          #------------------------------------------------------------
+      
+          # CSV Writer Functions to write data to a CSV file
+          #------------------------------------------------------------
           student_ratings_csv_writer("teacher_student_ratings.csv", teacher_node)
-          # teacher_rating_thumbs_csv_writer("teacher_rating_thumbs.csv", teacher_node)
+          #------------------------------------------------------------
+
+
 
           # print_teacher_page_info(teacher_node)
           has_next_page = teacher_node['ratings']['pageInfo']['hasNextPage'] # If next page True otherwise False
@@ -121,7 +132,6 @@ def fetch_teacher_data(teacher_id: str, rating_amount_per_request: int, cursor: 
 
 # This code will only run when fetch_teacher_data.py is executed directly as a script
 if __name__ == "__main__":
-#  fetch_teacher_data("VGVhY2hlci0yMTg0MzUw", 10, "")  #fetch_teacher_data(teacher_id, rating_amount_per_request, cursor)
+  fetch_teacher_data("VGVhY2hlci0yMTg0MzUw", 10, "")  #fetch_teacher_data(teacher_id, rating_amount_per_request, cursor)
 
-  fetch_teacher_data("VGVhY2hlci0xOTE=", 10, "")  #fetch_teacher_data(teacher_id, rating_amount_per_request, cursor)
 
