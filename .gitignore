@@ -1,7 +1,24 @@
 # Ignore the __pycache__ folder
 __pycache__/
+
+# Ignore __pycache in fetch folders
 /fetch_school_folder/__pycache__/
 /fetch_teacher_folder/__pycache__/
-school_rating_distribution
-school_student_ratings
-school
+
+# Ignore all school csv files
+school_rating_distribution.csv
+school_student_ratings.csv
+school.csv
+
+# Ignore all teacher csv files
+teacher.csv
+teacher_course_codes.csv
+teacher_rating_tags.csv
+teacher_related_teachers.csv
+teacher_student_ratings.csv
+
+#Ignore these folders
+/Teacher CSV/
+/School CSV/
+/Runs/
+/Script Flow/
