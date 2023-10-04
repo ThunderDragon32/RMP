@@ -10,21 +10,15 @@ from fetch_teacher_data import fetch_teacher_data
 #================================================================
 # fetch_teacher_data can be used to retieve a single teacher's data at a time. 
 # We use it here to loop for the amount of teacher ids in teacher_id_list and use the teacher id listed in the file to get each specific teacher's data.
-# Amount of ratings to get per request simply is setting the amount of ratings to grab for each sent request. 
-#   Because we are looping to get every rating this doesnt matter much.
 # The cursor is used to select the starting positon of the teacher's ratings when displayed 
 #================================================================
 
 class Color:
-    BLACK = '\033[30m'
     RED = '\033[31m'
     GREEN = '\033[32m'
-    YELLOW = '\033[33m'
-    BLUE = '\033[34m'
-    MAGENTA = '\033[35m'
-    CYAN = '\033[36m'
-    WHITE = '\033[37m'
     RESET = '\033[0m'
+
+
 
 def fetch_all_teacher_data():
 
@@ -42,7 +36,7 @@ def fetch_all_teacher_data():
 
             for teacher_id in lines: # For every teacher_id in teacher_id_list (generated after you run teacher_id_setup.py) it will get the teacher_id of the current line
                 current_line += 1
-                fetch_teacher_data(teacher_id.strip(), 200, "") #Takes teacher_id, rating_amount_per_request (amount of ratings to get per request), and cursor (position to grab data). 
+                fetch_teacher_data(teacher_id.strip(), "") #Takes teacher_id, rating_amount_per_request (amount of ratings to get per request), and cursor (position to grab data). 
         
                 # #Comment out this loop if you dont want it to ask for continue input
                 # #================================================================ 

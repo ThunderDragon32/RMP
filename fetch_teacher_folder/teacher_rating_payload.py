@@ -11,7 +11,7 @@
 # cursor: position to start fetching NOTE: "" is the beginning
 #----------------------------------------------------------------
 
-def generate_teacher_rating_payload(teacher_id: str, ratings_per_request : int, cursor: str):
+def generate_teacher_rating_payload(teacher_id: str, cursor: str):
     
   # This query will return:
 
@@ -54,7 +54,7 @@ def generate_teacher_rating_payload(teacher_id: str, ratings_per_request : int, 
     __typename
     ... on Teacher {{
       id
-      ratings(first: {ratings_per_request}, after: $cursor) {{           # Get This many ratings
+      ratings(first: 200, after: $cursor) {{           # Get This many ratings
         edges {{
           cursor
           node {{

@@ -13,7 +13,7 @@
 # cursor: position to start fetching NOTE: "" is the beginning
 #----------------------------------------------------------------
 
-def generate_school_rating_query_payload(school_id  : str, ratings_amount_per_request : int, cursor : str):
+def generate_school_rating_query_payload(school_id  : str, cursor : str):
 
  #This query only returns:
 
@@ -67,7 +67,7 @@ def generate_school_rating_query_payload(school_id  : str, ratings_amount_per_re
     
     fragment SchoolRatingsList_school on School {{
       id
-      ratings(first: {ratings_amount_per_request}, after: $cursor) {{
+      ratings(first: 200, after: $cursor) {{
         edges {{
           cursor
           node {{
