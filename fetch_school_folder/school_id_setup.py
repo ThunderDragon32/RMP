@@ -12,6 +12,11 @@
 import requests # Used to make HTTP requests
 import base64 # used to decode School ID
 
+class Color:
+    RED = '\033[31m'
+    GREEN = '\033[32m'
+    RESET = '\033[0m'
+
 def fetch_school_id_list():
     # Define the GraphQL endpoint URL
     graphql_url = "https://www.ratemyprofessors.com/graphql"
@@ -69,8 +74,9 @@ def fetch_school_id_list():
     file_path = 'fetch_school_folder\\school_id_list.txt'   
     with open(file_path, 'w') as file: # write" mode ('w'). 
                                       #Allows you to create, modify or overwrite the content of the file
-                                      
-
+        
+        print(f"{Color.GREEN}Process Started{Color.RESET}")
+        
         while True: # Enter a loop to fetch School Ids until no next page is reached
 
             response = requests.post(graphql_url, json=payload, headers=headers) #Using the defined parameters from earlier
@@ -106,7 +112,10 @@ def fetch_school_id_list():
                 
                 else:
                     # print(school_count)
-                    print("=" *20 + "COMPLETED WRITING SCHOOL IDs" + "=" *20)
+                    total_width = 120
+                    completed_line_text = "=" *20 + "COMPLETED WRITING SCHOOL IDs" + "=" *20
+                    total_number_text = f"\nTotal number of School IDs: {school_count}"
+                    print(f"{Color.GREEN}{completed_line_text.center(total_width)} {total_number_text.center(total_width)}{Color.RESET}")
                     break  # Exit the loop if there's no next page
 
             else:

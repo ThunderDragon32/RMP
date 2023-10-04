@@ -12,6 +12,11 @@
 import requests # Used to make HTTP requests
 import base64 # used to decode Teacher ID
 
+class Color:
+    RED = '\033[31m'
+    GREEN = '\033[32m'
+    RESET = '\033[0m'
+
 def fetch_teacher_id_list():
 
     # Define the GraphQL endpoint URL
@@ -84,6 +89,7 @@ def fetch_teacher_id_list():
     file_path = 'fetch_teacher_folder\\teacher_id_list.txt'   
     with open(file_path, 'w') as file: # write" mode ('w'). 
                                       #Allows you to create, modify or overwrite the content of the file
+        print(f"{Color.GREEN}Process Started{Color.RESET}")
 
         while True: # Enter a loop to fetch Teacher Ids until no next page is reached
 
@@ -91,6 +97,7 @@ def fetch_teacher_id_list():
 
             # Check if the request was successful (status code 200) # if 200 we actually got a response with data back.
             if response.status_code == 200:
+                print(f"{Color.GREEN}Working..{Color.RESET}")
             
                 data = response.json()
                 #print(data) #print raw data (debug purpose)
@@ -117,9 +124,11 @@ def fetch_teacher_id_list():
                 if has_next_page: #Check if there is a next page if so update cursor position to only get new data.
                     cursor = data['data']['search']['teachers']['pageInfo']['endCursor'] # Get the current position of the cursor
                     payload['variables']['cursor'] = cursor #Update payload cursor here
-                
                 else:
-                    print("=" *20 + "COMPLETED WRITING TEACHER IDs" + "=" *20)
+                    total_width = 120
+                    completed_line_text = "=" *20 + "COMPLETED WRITING TEACHER IDs" + "=" *20
+                    total_number_text = f"\nTotal number of Teacher IDs: {teacherNumber}"
+                    print(f"{Color.GREEN}{completed_line_text.center(total_width)} {total_number_text.center(total_width)}{Color.RESET}")
                     break  # Exit the loop if there's no next page
 
             else:
