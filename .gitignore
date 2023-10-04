@@ -2,3 +2,6 @@
 __pycache__/
 /fetch_school_folder/__pycache__/
 /fetch_teacher_folder/__pycache__/
+school_rating_distribution
+school_student_ratings
+school
