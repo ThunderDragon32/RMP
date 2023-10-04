@@ -7,21 +7,31 @@
 import os
 import csv
 import html
+import threading
+
+#Thread locks to ensure only one thread can write to a file at a time
+school_lock = threading.Lock()
+school_rating_distribution_lock = threading.Lock()
+school_individual_ratings_lock = threading.Lock()
+school_rating_thumbs_lock = threading.Lock()
+#----------------------------------------------------------------
+
 
 # Used To write data into CSV (This is called in each function below)
-def csv_writer(file_name, header_row, data_row):
+def csv_writer(file_name, header_row, data_row, lock):
+  with lock:
 
-  # This is used later as a check to see if the header is present already
-  file_exists = os.path.isfile(file_name) and os.path.getsize(file_name) > 0
-  #------
+    # This is used later as a check to see if the header is present already
+    file_exists = os.path.isfile(file_name) and os.path.getsize(file_name) > 0
+    #------
 
-  with open(file_name, mode='a', newline='', encoding='utf-8') as csv_file:
-    csv_writer = csv.writer(csv_file)
+    with open(file_name, mode='a', newline='', encoding='utf-8') as csv_file:
+      csv_writer = csv.writer(csv_file)
 
-    if not file_exists: # Writes the header to the file if its not already present
-      csv_writer.writerow(header_row)
+      if not file_exists: # Writes the header to the file if its not already present
+        csv_writer.writerow(header_row)
 
-    csv_writer.writerow(data_row) # Write the data
+      csv_writer.writerow(data_row) # Write the data
 
 #--------------------------------------------------------------------
 
@@ -37,7 +47,7 @@ def school_csv_writer(file_name: str, school_node : dict):
               school_node['name'], school_node['city'], school_node['state'],
               school_node['country'], school_node['numRatings']]
   
-  csv_writer(file_name, header_row, data_row) # Writes data to the CSV file
+  csv_writer(file_name, header_row, data_row, school_lock) # Writes data to the CSV file
 
 
 def school_rating_distribution_csv_writer(file_name: str, school_node: dict):
@@ -79,7 +89,7 @@ def school_rating_distribution_csv_writer(file_name: str, school_node: dict):
   data_row = [school_node['id'], averageRating, round(averageRating, 2), facilitiesRating, locationRating,
               opportunitiesRating, clubsRating, foodRating, internetRating, reputationRating, safetyRating, happinessRating, socialRating]
   
-  csv_writer(file_name, header_row, data_row) # Write to the CSV file
+  csv_writer(file_name, header_row, data_row, school_rating_distribution_lock) # Write to the CSV file
 
 
 
@@ -135,7 +145,7 @@ def school_individual_ratings_csv_writer(file_name: str, school_node: dict):
                internetRating, safetyRating, comment,
                 rating_node['flagStatus'], rating_node['thumbsDownTotal'], rating_node['thumbsUpTotal']]
     
-    csv_writer(file_name, header_row, data_row) # Write the data to the CSV file
+    csv_writer(file_name, header_row, data_row, school_individual_ratings_lock) # Write the data to the CSV file
 
 
 
@@ -156,4 +166,4 @@ def school_rating_thumbs_csv_writer(file_name: str, school_node: dict):
       data_row = [school_node['id'], rating_node['id'], thumbs['computerId'], 
                   thumbs['id'], thumbs['thumbsDown'], thumbs['thumbsUp']]
       
-      csv_writer(file_name, header_row, data_row) # Write the data to the CSV file
+      csv_writer(file_name, header_row, data_row, school_rating_thumbs_lock) # Write the data to the CSV file
