@@ -25,14 +25,14 @@ sys.path.insert(2, f'{current_dir}/fetch_teacher_folder')
 
 #----School Imports from /fetch_school_folder
 import school_id_setup 
-import fetch_school_data
-import fetch_all_school_data
+import mt_fetch_all_school_data
+import mt__fetch_school_data
 #-----
 
 #-----Teacher Imports from /fetch_teacher_folder
 import teacher_id_setup
-import fetch_teacher_data
-import fetch_all_teacher_data
+import mt_fetch_teacher_data
+import mt_fetch_all_teacher_data
 #-----
 
 # EXAMPLES FOR REQUESTING TEACHER DATA
@@ -135,7 +135,7 @@ import fetch_all_teacher_data
 # thumbsUp:          
 #               
 #============================================================================
-#fetch_teacher_data.fetch_teacher_data("VGVhY2hlci0yMTg0MzUw", "")  #fetch_teacher_data(teacher_id, cursor)
+# mt_fetch_teacher_data.fetch_teacher_data("VGVhY2hlci0yMTg0MzUw", "")  #fetch_teacher_data(teacher_id, cursor)
 #============================================================================
 #---------------------------------------------------------------------------
 
@@ -145,7 +145,7 @@ import fetch_all_teacher_data
 # The current setup asks if you would like to continue after printing all the data for the specific teacher
 
 #================================================================
-# fetch_all_teacher_data.fetch_all_teacher_data()
+# mt_fetch_all_teacher_data.fetch_all_teacher_data()
 #================================================================
 
 
@@ -220,7 +220,7 @@ import fetch_all_teacher_data
 # 
     
 #================================================================
-# fetch_school_data.fetch_school_data("U2Nob29sLTU2Nw==", "") #fetch_school_data(school_id, cursor)
+# mt__fetch_school_data.fetch_school_data("U2Nob29sLTU2Nw==", "") #fetch_school_data(school_id, cursor)
 #================================================================
 
 # Fetch All School Data (All Schools)
@@ -229,7 +229,7 @@ import fetch_all_teacher_data
 # The current setup asks if you would like to continue after printing all the data for the specific school
 
 #================================================================
-# fetch_all_school_data.fetch_all_school_data()
+# mt_fetch_all_school_data.fetch_all_school_data()
 #================================================================
 
 
