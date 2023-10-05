@@ -6,8 +6,6 @@
 # *****************************************************************************
 import json
 import requests # Used to make HTTP requests
-import base64 # Used to decode IDs
-import threading
 from time import sleep
 from school_rating_payload import generate_school_rating_query_payload # import the rating payload function
 from school_inital_payload import generate_inital_payload # import the inital payload function
@@ -149,20 +147,8 @@ def fetch_school_data(school_id : str, cursor : str):
 
 #----------------------------------------------------------------
 
-def fetch_school_data_with_threads(school_ids, cursor):
-    threads = [] # This initalizes an empty list to store thread objects
-    for school_id in school_ids: # For each school_ids in the list
-        thread = threading.Thread(target=fetch_school_data, args=(school_id.strip(), cursor)) # This create a new thread
-        threads.append(thread) # Appends to the thread list to keep track
-        thread.start() # Starts the thread
-
-    for thread in threads: # This will wait and join back all the threads into the main program
-        thread.join() #This line waits for each thread to complete its 
-                        #execution before moving on. This ensures that all threads have finished fetching teacher data before the program proceeds.
-
 # This code will only run when mt_fetch_school_data.py is executed directly as a script
 if __name__ == "__main__":
-    school_ids = ["U2Nob29sLTE=", "U2Nob29sLTI=", "U2Nob29sLTM=", "U2Nob29sLTQ=", "U2Nob29sLTU=", "U2Nob29sLTY="]
-    cursor = ""
-    fetch_school_data_with_threads(school_ids, cursor)
+
+    fetch_school_data("U2Nob29sLTE=", "")
     print(f"{Color.GREEN}Completed{Color.RESET}")

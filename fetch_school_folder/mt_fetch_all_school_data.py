@@ -4,7 +4,8 @@
 # Date: October 04, 2023
 # Description: This script fetches All School data from RateMyProfessors using the school_id_list to get school IDs.
 # *****************************************************************************
-from mt__fetch_school_data import fetch_school_data_with_threads # import the fetch_school_data_with_threads function from mt_fetch_school_data.py
+from mt__fetch_school_data import fetch_school_data # import the fetch_school_data function from mt_fetch_school_data.py
+import threading
 
 #================================================================
 # fetch_school_data can be used to retieve a single school's data at a time. 
@@ -24,6 +25,19 @@ def print_batch(current_line, amount_of_lines_in_file):
     current_line_text = f"{current_line} / {amount_of_lines_in_file}"
     print(f"{Color.RESET}{batch_completed_text.center(total_width)}\n{Color.GREEN}{current_line_text.center(total_width)}{Color.RESET}")
 
+def fetch_school_data_with_threads(school_ids, cursor):
+    threads = [] # This initalizes an empty list to store thread objects
+    for school_id in school_ids: # For each school_ids in the list
+        thread = threading.Thread(target=fetch_school_data, args=(school_id.strip(), cursor)) # This create a new thread
+        threads.append(thread) # Appends to the thread list to keep track
+        thread.start() # Starts the thread
+
+    for thread in threads: # This will wait and join back all the threads into the main program
+        thread.join() #This line waits for each thread to complete its 
+                        #execution before moving on. This ensures that all threads have finished fetching teacher data before the program proceeds.
+
+## Main Function
+##================================================================
 
 def fetch_all_school_data():
     
@@ -41,7 +55,7 @@ def fetch_all_school_data():
                 current_line += 1
                 school_ids.append(school_id.strip())  # Add school ID to the list
                     
-                if len(school_ids) == 400:  # If the list reaches a length of 100
+                if len(school_ids) == 100:  # If the list reaches the length
                     fetch_school_data_with_threads(school_ids, "")  # Pass the list to the fetch function
                     school_ids = []  # Clear the list for the next batch of school IDs
                     print_batch(current_line, amount_of_lines_in_file)
@@ -55,6 +69,8 @@ def fetch_all_school_data():
     
     except FileNotFoundError:
         print(f"The file '{file_path}' does not exist.\n-----\nPlease run fetch_school_folder\\school_id_setup.py\n----")
+
+##================================================================
 
 #----------------------------------------------------------------
 

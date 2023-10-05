@@ -141,19 +141,6 @@ def fetch_teacher_data(teacher_id, cursor):
 
 #----------------------------------------------------------------
 
-def fetch_teacher_data_with_threads(teacher_ids, cursor):
-    threads = [] # This initalizes an empty list to store thread objects
-    for teacher_id in teacher_ids: # For each teacher_ids in the list
-        thread = threading.Thread(target=fetch_teacher_data, args=(teacher_id.strip(), cursor)) # This create a new thread
-        threads.append(thread) # Appends to the thread list to keep track
-        thread.start() # Starts the thread
-
-    for thread in threads: # This will wait and join back all the threads into the main program
-        thread.join() #This line waits for each thread to complete its 
-                        #execution before moving on. This ensures that all threads have finished fetching teacher data before the program proceeds.
-
 if __name__ == "__main__":
-    teacher_ids = ["VGVhY2hlci0yMDc0Mjc2", " VGVhY2hlci0yMDc0ODQ2", "VGVhY2hlci0yMDcxMzA0", "VGVhY2hlci0yMDY2MjQy"]
-    cursor = ""
-    fetch_teacher_data_with_threads(teacher_ids, cursor)
+    fetch_teacher_data("VGVhY2hlci03NA==", "")
     print(f"{Color.GREEN}Completed{Color.RESET}")
