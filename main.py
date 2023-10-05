@@ -66,12 +66,12 @@ def option_1():
     school_id_setup.fetch_school_id_list()
 
 def option_2():
-    print(f"{Color.GREEN}Fetch All Teacher Data Started{Color.RESET}")
-    mt_fetch_all_teacher_data.fetch_all_teacher_data()
-
-def option_3():
     print(f"{Color.GREEN}Fetch All School Data Started{Color.RESET}")
     mt_fetch_all_school_data.fetch_all_school_data()
+
+def option_3():
+    print(f"{Color.GREEN}Fetch All Teacher Data Started{Color.RESET}")
+    mt_fetch_all_teacher_data.fetch_all_teacher_data()
 
 def option_4():
     option_1()
@@ -79,7 +79,7 @@ def option_4():
     option_3()
 
 # Main program loop
-options = ["Configure ID List", "Retrieve Teacher Data", "Retrieve School Data", "Complete RMP Data (No Setup Required)", "Quit"]
+options = ["Configure ID List", "Retrieve School Data", "Retrieve Teacher Data", "Complete RMP Data (No Setup Required)", "Quit"]
 selected_option = 0
 
 while True:
