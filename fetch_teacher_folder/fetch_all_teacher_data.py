@@ -27,7 +27,9 @@ def fetch_all_teacher_data():
     frequency = 800  # Set the frequency (in Hz), used for winsound.beep (makes a simple beep sound)
     duration = 1000  # Set the duration (in milliseconds) used for winsound.beep (makes a simple beep sound)
 
-    file_path = 'fetch_teacher_folder\\teacher_id_list.txt'   
+    file_path = 'fetch_teacher_folder\\teacher_id_list.txt'
+    print(f"{Color.GREEN}Fetch All Teacher Data Started{Color.RESET}")
+
 
     try:
         with open(file_path, 'r') as file:
@@ -53,7 +55,9 @@ def fetch_all_teacher_data():
                 #     break  # Break out of the outer loop
                 # #================================================================
                 
-                print(f"                                                {Color.GREEN} {current_line} / {amount_of_lines_in_file} {Color.RESET}") 
+                print(f"                                                {Color.GREEN} {current_line} / {amount_of_lines_in_file} {Color.RESET}")
+        print(f"{Color.GREEN}Fetch All Teacher Data Completed{Color.RESET}")
+         
 
     except FileNotFoundError:
         print(f"The file '{file_path}' does not exist.\n-----\nPlease run fetch_teacher_folder\\teacher_id_setup.py\n----")

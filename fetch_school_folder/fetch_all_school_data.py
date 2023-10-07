@@ -28,6 +28,8 @@ def fetch_all_school_data():
     duration = 1000  # Set the duration (in milliseconds) used for winsound.beep (makes a simple beep sound)
 
     file_path = 'fetch_school_folder\\school_id_list.txt'
+    print(f"{Color.GREEN}Fetch All School Data Started{Color.RESET}")
+
     try: 
         with open(file_path, 'r') as file:
             lines = file.readlines()
@@ -54,6 +56,8 @@ def fetch_all_school_data():
                 # #================================================================
 
                 print(f"                                                {Color.GREEN} {current_line} / {amount_of_lines_in_file} {Color.RESET}") 
+        print(f"{Color.GREEN}Fetch All School Data Completed{Color.RESET}")
+
 
     
     except FileNotFoundError:

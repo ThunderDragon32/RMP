@@ -60,17 +60,13 @@ def display_menu(options, selected_option):
 
 
 def option_1():
-    print(f"{Color.GREEN}Teacher ID Setup Started{Color.RESET}")
     teacher_id_setup.fetch_teacher_id_list()
-    print(f"{Color.GREEN}School ID Setup Started{Color.RESET}")
     school_id_setup.fetch_school_id_list()
 
 def option_2():
-    print(f"{Color.GREEN}Fetch All School Data Started{Color.RESET}")
     mt_fetch_all_school_data.fetch_all_school_data()
 
 def option_3():
-    print(f"{Color.GREEN}Fetch All Teacher Data Started{Color.RESET}")
     mt_fetch_all_teacher_data.fetch_all_teacher_data()
 
 def option_4():

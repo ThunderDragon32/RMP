@@ -35,26 +35,20 @@ def fetch_teacher_data_with_threads(teacher_ids, cursor):
 
 def fetch_all_teacher_data():
     current_line = 0
-    inital = True
     file_path = 'fetch_teacher_folder\\teacher_id_list.txt'
+    print(f"{Color.GREEN}Fetch All Teacher Data Started{Color.RESET}")
     print(f"{Color.YELLOW}ENSURE YOU HAVE A UPDATED COPY OF TEACHER ID LIST BEFORE RUNNING TO LIMIT 'Professor not found' errors{Color.RESET}")
 
     try:
         with open(file_path, 'r') as file:
             lines = file.readlines()
             amount_of_lines_in_file = len(lines)
-
             teacher_ids = []  # Initialize a list to hold teacher IDs
 
             for teacher_id in lines:
                 current_line += 1
                 teacher_ids.append(teacher_id.strip())  # Add teacher ID to the list
-                if inital:
-                    inital = False
-                    fetch_teacher_data_with_threads(teacher_ids, "")  # Pass the list to the fetch function
-                    teacher_ids = []  # Clear the list for the next batch of teacher IDs
-                    
-                elif len(teacher_ids) == 100:  # If the list reaches a length of 100
+                if len(teacher_ids) == 400:  # If the list reaches the length
                     fetch_teacher_data_with_threads(teacher_ids, "")  # Pass the list to the fetch function
                     teacher_ids = []  # Clear the list for the next batch of teacher IDs
                     print_batch(current_line, amount_of_lines_in_file)
@@ -64,6 +58,8 @@ def fetch_all_teacher_data():
                 fetch_teacher_data_with_threads(teacher_ids, "")
                 print_batch(current_line, amount_of_lines_in_file)
 
+        print(f"{Color.GREEN}Fetch All Teacher Data Completed{Color.RESET}")
+        
     except FileNotFoundError:
         print(f"The file '{file_path}' does not exist.\n-----\nPlease run fetch_teacher_folder\\teacher_id_setup.py\n----")
 #============================================================================

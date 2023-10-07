@@ -94,8 +94,6 @@ def fetch_teacher_data(teacher_id, cursor):
                     if teacher_node:
                         #print(teacher_node) #Debug print
 
-
-
                         #Print Function, prints to the console
                         #------------------------------------------------------------
                         # print_student_ratings(teacher_node)
@@ -105,8 +103,6 @@ def fetch_teacher_data(teacher_id, cursor):
                         #------------------------------------------------------------
                         student_ratings_csv_writer("teacher_student_ratings.csv", teacher_node)
                         #------------------------------------------------------------
-
-
 
                         # print_teacher_page_info(teacher_node)
                         has_next_page = teacher_node['ratings']['pageInfo']['hasNextPage'] # If next page True otherwise False

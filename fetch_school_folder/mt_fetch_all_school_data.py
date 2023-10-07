@@ -43,6 +43,7 @@ def fetch_all_school_data():
     
     current_line = 0
     file_path = 'fetch_school_folder\\school_id_list.txt'
+    print(f"{Color.GREEN}Fetch All School Data Started{Color.RESET}")
     print(f"{Color.YELLOW}ENSURE YOU HAVE A UPDATED COPY OF SCHOOL ID LIST BEFORE RUNNING TO LIMIT 'School not found' errors{Color.RESET}")
 
     try: 
@@ -55,7 +56,7 @@ def fetch_all_school_data():
                 current_line += 1
                 school_ids.append(school_id.strip())  # Add school ID to the list
                     
-                if len(school_ids) == 100:  # If the list reaches the length
+                if len(school_ids) == 400:  # If the list reaches the length
                     fetch_school_data_with_threads(school_ids, "")  # Pass the list to the fetch function
                     school_ids = []  # Clear the list for the next batch of school IDs
                     print_batch(current_line, amount_of_lines_in_file)
@@ -64,6 +65,10 @@ def fetch_all_school_data():
             if school_ids:
                 fetch_school_data_with_threads(school_ids, "")
                 print_batch(current_line, amount_of_lines_in_file)
+        print(f"{Color.GREEN}Fetch All School Data Completed{Color.RESET}")
+
+        
+        
 
 
     

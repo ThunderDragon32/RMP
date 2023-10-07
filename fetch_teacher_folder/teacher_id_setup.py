@@ -74,8 +74,6 @@ def fetch_teacher_id_list():
         }
     }
     
-    
-
     # Set headers based on the provided information
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36",
@@ -89,7 +87,7 @@ def fetch_teacher_id_list():
     file_path = 'fetch_teacher_folder\\teacher_id_list.txt'   
     with open(file_path, 'w') as file: # write" mode ('w'). 
                                       #Allows you to create, modify or overwrite the content of the file
-        print(f"{Color.GREEN}Process Started{Color.RESET}")
+        print(f"{Color.GREEN}Teacher ID Setup Started{Color.RESET}")
 
         while True: # Enter a loop to fetch Teacher Ids until no next page is reached
 
@@ -127,12 +125,12 @@ def fetch_teacher_id_list():
                 else:
                     total_width = 120
                     completed_line_text = "=" *20 + "COMPLETED WRITING TEACHER IDs" + "=" *20
-                    total_number_text = f"\nTotal number of Teacher IDs: {teacherNumber}"
+                    total_number_text = f"\nTotal number of Teacher IDs: {teacherNumber}\n"
                     print(f"{Color.GREEN}{completed_line_text.center(total_width)} {total_number_text.center(total_width)}{Color.RESET}")
                     break  # Exit the loop if there's no next page
 
             else:
-                print("GraphQL request failed with status code:", response.status_code)
+                print(f"{Color.RED}GraphQL request failed with status code:{Color.RESET}", response.status_code)
                 break # Exit the loop on error
 
 #------------------------------------------------------------------------------------------
